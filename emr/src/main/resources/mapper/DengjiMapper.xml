@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slwh.emr.mapper.DengjiMapper" >
+  <resultMap id="BaseResultMap" type="com.slwh.emr.model.Dengji" >
+    <id column="dj_id" property="djId" jdbcType="INTEGER" />
+    <result column="dj_level" property="djLevel" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dj_id, dj_level
+  </sql>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from emr_dengji
+    where dj_id = #{djId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteById" parameterType="java.lang.Integer" >
+    delete from emr_dengji
+    where dj_id = #{djId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.slwh.emr.model.Dengji" >
+    insert into emr_dengji (dj_id, dj_level)
+    values (#{djId,jdbcType=INTEGER}, #{djLevel,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.slwh.emr.model.Dengji" >
+    insert into emr_dengji
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="djId != null" >
+        dj_id,
+      </if>
+      <if test="djLevel != null" >
+        dj_level,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="djId != null" >
+        #{djId,jdbcType=INTEGER},
+      </if>
+      <if test="djLevel != null" >
+        #{djLevel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByIdSelective" parameterType="com.slwh.emr.model.Dengji" >
+    update emr_dengji
+    <set >
+      <if test="djLevel != null" >
+        dj_level = #{djLevel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dj_id = #{djId,jdbcType=INTEGER}
+  </update>
+  <update id="updateById" parameterType="com.slwh.emr.model.Dengji" >
+    update emr_dengji
+    set dj_level = #{djLevel,jdbcType=VARCHAR}
+    where dj_id = #{djId,jdbcType=INTEGER}
+  </update>
+</mapper>

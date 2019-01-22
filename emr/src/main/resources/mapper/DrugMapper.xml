@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slwh.emr.mapper.DrugMapper" >
+  <resultMap id="BaseResultMap" type="com.slwh.emr.model.Drug" >
+    <id column="dr_id" property="drId" jdbcType="INTEGER" />
+    <result column="dr_num" property="drNum" jdbcType="VARCHAR" />
+    <result column="dr_name" property="drName" jdbcType="VARCHAR" />
+    <result column="dr_level" property="drLevel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dr_id, dr_num, dr_name, dr_level
+  </sql>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from emr_drug
+    where dr_id = #{drId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteById" parameterType="java.lang.Integer" >
+    delete from emr_drug
+    where dr_id = #{drId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.slwh.emr.model.Drug" >
+    insert into emr_drug (dr_id, dr_num, dr_name, 
+      dr_level)
+    values (#{drId,jdbcType=INTEGER}, #{drNum,jdbcType=VARCHAR}, #{drName,jdbcType=VARCHAR}, 
+      #{drLevel,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.slwh.emr.model.Drug" >
+    insert into emr_drug
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="drId != null" >
+        dr_id,
+      </if>
+      <if test="drNum != null" >
+        dr_num,
+      </if>
+      <if test="drName != null" >
+        dr_name,
+      </if>
+      <if test="drLevel != null" >
+        dr_level,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="drId != null" >
+        #{drId,jdbcType=INTEGER},
+      </if>
+      <if test="drNum != null" >
+        #{drNum,jdbcType=VARCHAR},
+      </if>
+      <if test="drName != null" >
+        #{drName,jdbcType=VARCHAR},
+      </if>
+      <if test="drLevel != null" >
+        #{drLevel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByIdSelective" parameterType="com.slwh.emr.model.Drug" >
+    update emr_drug
+    <set >
+      <if test="drNum != null" >
+        dr_num = #{drNum,jdbcType=VARCHAR},
+      </if>
+      <if test="drName != null" >
+        dr_name = #{drName,jdbcType=VARCHAR},
+      </if>
+      <if test="drLevel != null" >
+        dr_level = #{drLevel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where dr_id = #{drId,jdbcType=INTEGER}
+  </update>
+  <update id="updateById" parameterType="com.slwh.emr.model.Drug" >
+    update emr_drug
+    set dr_num = #{drNum,jdbcType=VARCHAR},
+      dr_name = #{drName,jdbcType=VARCHAR},
+      dr_level = #{drLevel,jdbcType=INTEGER}
+    where dr_id = #{drId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByNum" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from emr_drug
+    where dr_num = #{dNum}
+  </select>
+
+</mapper>

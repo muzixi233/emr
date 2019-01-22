@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slwh.emr.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.slwh.emr.model.User" >
+    <id column="u_id" property="uId" jdbcType="INTEGER" />
+    <result column="u_name" property="uName" jdbcType="VARCHAR" />
+    <result column="u_sex" property="uSex" jdbcType="VARCHAR" />
+    <result column="u_age" property="uAge" jdbcType="INTEGER" />
+    <result column="u_tel" property="uTel" jdbcType="INTEGER" />
+    <result column="level_id" property="levelId" jdbcType="INTEGER" />
+    <result column="huli_id" property="huliId" jdbcType="INTEGER" />
+    <result column="mr_num" property="mrNum" jdbcType="VARCHAR" />
+    <result column="doctor_num" property="doctorNum" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    u_id, u_name, u_sex, u_age, u_tel, level_id, huli_id, mr_num, doctor_num
+  </sql>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from emr_user
+    where u_id = #{uId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteById" parameterType="java.lang.Integer" >
+    delete from emr_user
+    where u_id = #{uId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.slwh.emr.model.User" >
+    insert into emr_user (u_id, u_name, u_sex, 
+      u_age, u_tel, level_id, 
+      huli_id, mr_num, doctor_num
+      )
+    values (#{uId,jdbcType=INTEGER}, #{uName,jdbcType=VARCHAR}, #{uSex,jdbcType=VARCHAR}, 
+      #{uAge,jdbcType=INTEGER}, #{uTel,jdbcType=INTEGER}, #{levelId,jdbcType=INTEGER}, 
+      #{huliId,jdbcType=INTEGER}, #{mrNum,jdbcType=VARCHAR}, #{doctorNum,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.slwh.emr.model.User" >
+    insert into emr_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uId != null" >
+        u_id,
+      </if>
+      <if test="uName != null" >
+        u_name,
+      </if>
+      <if test="uSex != null" >
+        u_sex,
+      </if>
+      <if test="uAge != null" >
+        u_age,
+      </if>
+      <if test="uTel != null" >
+        u_tel,
+      </if>
+      <if test="levelId != null" >
+        level_id,
+      </if>
+      <if test="huliId != null" >
+        huli_id,
+      </if>
+      <if test="mrNum != null" >
+        mr_num,
+      </if>
+      <if test="doctorNum != null" >
+        doctor_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uId != null" >
+        #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="uName != null" >
+        #{uName,jdbcType=VARCHAR},
+      </if>
+      <if test="uSex != null" >
+        #{uSex,jdbcType=VARCHAR},
+      </if>
+      <if test="uAge != null" >
+        #{uAge,jdbcType=INTEGER},
+      </if>
+      <if test="uTel != null" >
+        #{uTel,jdbcType=INTEGER},
+      </if>
+      <if test="levelId != null" >
+        #{levelId,jdbcType=INTEGER},
+      </if>
+      <if test="huliId != null" >
+        #{huliId,jdbcType=INTEGER},
+      </if>
+      <if test="mrNum != null" >
+        #{mrNum,jdbcType=VARCHAR},
+      </if>
+      <if test="doctorNum != null" >
+        #{doctorNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByIdSelective" parameterType="com.slwh.emr.model.User" >
+    update emr_user
+    <set >
+      <if test="uName != null" >
+        u_name = #{uName,jdbcType=VARCHAR},
+      </if>
+      <if test="uSex != null" >
+        u_sex = #{uSex,jdbcType=VARCHAR},
+      </if>
+      <if test="uAge != null" >
+        u_age = #{uAge,jdbcType=INTEGER},
+      </if>
+      <if test="uTel != null" >
+        u_tel = #{uTel,jdbcType=INTEGER},
+      </if>
+      <if test="levelId != null" >
+        level_id = #{levelId,jdbcType=INTEGER},
+      </if>
+      <if test="huliId != null" >
+        huli_id = #{huliId,jdbcType=INTEGER},
+      </if>
+      <if test="mrNum != null" >
+        mr_num = #{mrNum,jdbcType=VARCHAR},
+      </if>
+      <if test="doctorNum != null" >
+        doctor_num = #{doctorNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where u_id = #{uId,jdbcType=INTEGER}
+  </update>
+  <update id="updateById" parameterType="com.slwh.emr.model.User" >
+    update emr_user
+    set u_name = #{uName,jdbcType=VARCHAR},
+      u_sex = #{uSex,jdbcType=VARCHAR},
+      u_age = #{uAge,jdbcType=INTEGER},
+      u_tel = #{uTel,jdbcType=INTEGER},
+      level_id = #{levelId,jdbcType=INTEGER},
+      huli_id = #{huliId,jdbcType=INTEGER},
+      mr_num = #{mrNum,jdbcType=VARCHAR},
+      doctor_num = #{doctorNum,jdbcType=VARCHAR}
+    where u_id = #{uId,jdbcType=INTEGER}
+  </update>
+</mapper>

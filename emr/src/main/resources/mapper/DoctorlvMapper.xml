@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slwh.emr.mapper.DoctorlvMapper" >
+  <resultMap id="BaseResultMap" type="com.slwh.emr.model.Doctorlv" >
+    <id column="dlid" property="dlid" jdbcType="INTEGER" />
+    <result column="dlname" property="dlname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dlid, dlname
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from emr_doctorlv
+    where dlid = #{dlid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from emr_doctorlv
+    where dlid = #{dlid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.slwh.emr.model.Doctorlv" >
+    insert into emr_doctorlv (dlid, dlname)
+    values (#{dlid,jdbcType=INTEGER}, #{dlname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.slwh.emr.model.Doctorlv" >
+    insert into emr_doctorlv
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dlid != null" >
+        dlid,
+      </if>
+      <if test="dlname != null" >
+        dlname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dlid != null" >
+        #{dlid,jdbcType=INTEGER},
+      </if>
+      <if test="dlname != null" >
+        #{dlname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.slwh.emr.model.Doctorlv" >
+    update emr_doctorlv
+    <set >
+      <if test="dlname != null" >
+        dlname = #{dlname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dlid = #{dlid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.slwh.emr.model.Doctorlv" >
+    update emr_doctorlv
+    set dlname = #{dlname,jdbcType=VARCHAR}
+    where dlid = #{dlid,jdbcType=INTEGER}
+  </update>
+</mapper>

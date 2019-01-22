@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slwh.emr.mapper.BingliMapper" >
+  <resultMap id="BaseResultMap" type="com.slwh.emr.model.Bingli" >
+    <id column="bl_id" property="blId" jdbcType="INTEGER" />
+    <result column="bl_num" property="blNum" jdbcType="VARCHAR" />
+    <result column="bl_style" property="blStyle" jdbcType="VARCHAR" />
+    <result column="bl_msg" property="blMsg" jdbcType="VARCHAR" />
+    <result column="bl_state" property="blState" jdbcType="INTEGER" />
+    <result column="bl_history" property="blHistory" jdbcType="VARCHAR" />
+    <result column="bl_user" property="blUser" jdbcType="INTEGER" />
+    <result column="bl_doctor" property="blDoctor" jdbcType="VARCHAR" />
+    <result column="bl_drug" property="blDrug" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    bl_id, bl_num, bl_style, bl_msg, bl_state, bl_history, bl_user, bl_doctor, bl_drug
+  </sql>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from emr_bingli
+    where bl_id = #{blId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteById" parameterType="java.lang.Integer" >
+    delete from emr_bingli
+    where bl_id = #{blId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.slwh.emr.model.Bingli" >
+    insert into emr_bingli (bl_id, bl_num, bl_style, 
+      bl_msg, bl_state, bl_history, 
+      bl_user, bl_doctor, bl_drug
+      )
+    values (#{blId,jdbcType=INTEGER}, #{blNum,jdbcType=VARCHAR}, #{blStyle,jdbcType=VARCHAR}, 
+      #{blMsg,jdbcType=VARCHAR}, #{blState,jdbcType=INTEGER}, #{blHistory,jdbcType=VARCHAR}, 
+      #{blUser,jdbcType=INTEGER}, #{blDoctor,jdbcType=VARCHAR}, #{blDrug,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.slwh.emr.model.Bingli" >
+    insert into emr_bingli
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="blId != null" >
+        bl_id,
+      </if>
+      <if test="blNum != null" >
+        bl_num,
+      </if>
+      <if test="blStyle != null" >
+        bl_style,
+      </if>
+      <if test="blMsg != null" >
+        bl_msg,
+      </if>
+      <if test="blState != null" >
+        bl_state,
+      </if>
+      <if test="blHistory != null" >
+        bl_history,
+      </if>
+      <if test="blUser != null" >
+        bl_user,
+      </if>
+      <if test="blDoctor != null" >
+        bl_doctor,
+      </if>
+      <if test="blDrug != null" >
+        bl_drug,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="blId != null" >
+        #{blId,jdbcType=INTEGER},
+      </if>
+      <if test="blNum != null" >
+        #{blNum,jdbcType=VARCHAR},
+      </if>
+      <if test="blStyle != null" >
+        #{blStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="blMsg != null" >
+        #{blMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="blState != null" >
+        #{blState,jdbcType=INTEGER},
+      </if>
+      <if test="blHistory != null" >
+        #{blHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="blUser != null" >
+        #{blUser,jdbcType=INTEGER},
+      </if>
+      <if test="blDoctor != null" >
+        #{blDoctor,jdbcType=VARCHAR},
+      </if>
+      <if test="blDrug != null" >
+        #{blDrug,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByIdSelective" parameterType="com.slwh.emr.model.Bingli" >
+    update emr_bingli
+    <set >
+      <if test="blNum != null" >
+        bl_num = #{blNum,jdbcType=VARCHAR},
+      </if>
+      <if test="blStyle != null" >
+        bl_style = #{blStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="blMsg != null" >
+        bl_msg = #{blMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="blState != null" >
+        bl_state = #{blState,jdbcType=INTEGER},
+      </if>
+      <if test="blHistory != null" >
+        bl_history = #{blHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="blUser != null" >
+        bl_user = #{blUser,jdbcType=INTEGER},
+      </if>
+      <if test="blDoctor != null" >
+        bl_doctor = #{blDoctor,jdbcType=VARCHAR},
+      </if>
+      <if test="blDrug != null" >
+        bl_drug = #{blDrug,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bl_id = #{blId,jdbcType=INTEGER}
+  </update>
+  <update id="updateById" parameterType="com.slwh.emr.model.Bingli" >
+    update emr_bingli
+    set bl_num = #{blNum,jdbcType=VARCHAR},
+      bl_style = #{blStyle,jdbcType=VARCHAR},
+      bl_msg = #{blMsg,jdbcType=VARCHAR},
+      bl_state = #{blState,jdbcType=INTEGER},
+      bl_history = #{blHistory,jdbcType=VARCHAR},
+      bl_user = #{blUser,jdbcType=INTEGER},
+      bl_doctor = #{blDoctor,jdbcType=VARCHAR},
+      bl_drug = #{blDrug,jdbcType=VARCHAR}
+    where bl_id = #{blId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from emr_bingli
+  </select>
+</mapper>

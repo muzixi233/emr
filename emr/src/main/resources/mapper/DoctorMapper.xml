@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slwh.emr.mapper.DoctorMapper" >
+  <resultMap id="BaseResultMap" type="com.slwh.emr.model.Doctor" >
+    <id column="d_id" property="dId" jdbcType="INTEGER" />
+    <result column="d_name" property="dName" jdbcType="VARCHAR" />
+    <result column="d_password" property="dPassword" jdbcType="VARCHAR" />
+    <result column="d_age" property="dAge" jdbcType="INTEGER" />
+    <result column="d_sex" property="dSex" jdbcType="VARCHAR" />
+    <result column="d_tel" property="dTel" jdbcType="INTEGER" />
+    <result column="d_email" property="dEmail" jdbcType="VARCHAR" />
+    <result column="d_level" property="dLevel" jdbcType="INTEGER" />
+    <result column="d_dept" property="dDept" jdbcType="VARCHAR" />
+    <result column="d_num" property="dNum" jdbcType="VARCHAR" />
+    <association property="dept" select="getDept" column="d_dept"/>
+    <association property="doctorlv" select="getLv" column="d_level"/>
+  </resultMap>
+  <resultMap id="Dept" type="com.slwh.emr.model.Dept">
+  <id column="de_id" property="deId" jdbcType="INTEGER" />
+  <result column="de_num" property="deNum" jdbcType="VARCHAR" />
+  <result column="de_name" property="deName" jdbcType="VARCHAR" />
+  <result column="de_hospital" property="deHospital" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="Level" type="com.slwh.emr.model.Doctorlv">
+    <id column="dlid" property="dlid" jdbcType="INTEGER" />
+    <result column="dlname" property="dlname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    d_id, d_name, d_password, d_age, d_sex,d_dept, d_tel, d_email, d_level, d_num
+  </sql>
+<!-- 获取部门  -->
+  <select id="getDept" resultMap="Dept">
+      SELECT de_id,de_num,de_name,de_hospital from emr_dept
+      where de_num=#{d_dept}
+  </select>
+<!-- 获取医生等级  -->
+  <select id="getLv" resultMap="Level">
+    select dlid,dlname from emr_doctorlv
+where dlid=#{d_level}
+  </select>
+  <!-- 根据id查询 -->
+  <select id="selectId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from emr_doctor
+    where d_id = #{dId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteById" parameterType="java.lang.Integer" >
+    delete from emr_doctor
+    where d_id = #{dId,jdbcType=INTEGER}
+  </delete>
+
+  <!-- 新增医生 -->
+  <insert id="insert" parameterType="com.slwh.emr.model.Doctor" >
+    insert into emr_doctor (d_id, d_name, d_password, 
+      d_age, d_sex, d_tel, d_email, 
+      d_level, d_dept, d_num
+      )
+    values (#{dId,jdbcType=INTEGER}, #{dName,jdbcType=VARCHAR}, #{dPassword,jdbcType=VARCHAR}, 
+      #{dAge,jdbcType=INTEGER}, #{dSex,jdbcType=VARCHAR}, #{dTel,jdbcType=INTEGER}, #{dEmail,jdbcType=VARCHAR}, 
+      #{dLevel,jdbcType=INTEGER}, #{dDept,jdbcType=VARCHAR}, #{dNum,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.slwh.emr.model.Doctor" >
+    insert into emr_doctor
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dId != null" >
+        d_id,
+      </if>
+      <if test="dName != null" >
+        d_name,
+      </if>
+      <if test="dPassword != null" >
+        d_password,
+      </if>
+      <if test="dAge != null" >
+        d_age,
+      </if>
+      <if test="dSex != null" >
+        d_sex,
+      </if>
+      <if test="dTel != null" >
+        d_tel,
+      </if>
+      <if test="dEmail != null" >
+        d_email,
+      </if>
+      <if test="dLevel != null" >
+        d_level,
+      </if>
+      <if test="dDept != null" >
+        d_dept,
+      </if>
+      <if test="dNum != null" >
+        d_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dId != null" >
+        #{dId,jdbcType=INTEGER},
+      </if>
+      <if test="dName != null" >
+        #{dName,jdbcType=VARCHAR},
+      </if>
+      <if test="dPassword != null" >
+        #{dPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="dAge != null" >
+        #{dAge,jdbcType=INTEGER},
+      </if>
+      <if test="dSex != null" >
+        #{dSex,jdbcType=VARCHAR},
+      </if>
+      <if test="dTel != null" >
+        #{dTel,jdbcType=INTEGER},
+      </if>
+      <if test="dEmail != null" >
+        #{dEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="dLevel != null" >
+        #{dLevel,jdbcType=INTEGER},
+      </if>
+      <if test="dDept != null" >
+        #{dDept,jdbcType=VARCHAR},
+      </if>
+      <if test="dNum != null" >
+        #{dNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateIdSelective" parameterType="com.slwh.emr.model.Doctor" >
+    update emr_doctor
+    <set >
+      <if test="dName != null" >
+        d_name = #{dName,jdbcType=VARCHAR},
+      </if>
+      <if test="dPassword != null" >
+        d_password = #{dPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="dAge != null" >
+        d_age = #{dAge,jdbcType=INTEGER},
+      </if>
+      <if test="dSex != null" >
+        d_sex = #{dSex,jdbcType=VARCHAR},
+      </if>
+      <if test="dTel != null" >
+        d_tel = #{dTel,jdbcType=INTEGER},
+      </if>
+      <if test="dEmail != null" >
+        d_email = #{dEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="dLevel != null" >
+        d_level = #{dLevel,jdbcType=INTEGER},
+      </if>
+      <if test="dDept != null" >
+        d_dept = #{dDept,jdbcType=VARCHAR},
+      </if>
+      <if test="dNum != null" >
+        d_num = #{dNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where d_id = #{dId,jdbcType=INTEGER}
+  </update>
+
+  <!-- 根据id修改 -->
+  <update id="updateById" parameterType="com.slwh.emr.model.Doctor" >
+    update emr_doctor
+    set d_name = #{dName,jdbcType=VARCHAR},
+      d_age = #{dAge,jdbcType=INTEGER},
+      d_sex = #{dSex,jdbcType=VARCHAR},
+      d_tel = #{dTel,jdbcType=INTEGER},
+      d_email = #{dEmail,jdbcType=VARCHAR},
+      d_level = #{dLevel,jdbcType=INTEGER},
+      d_dept = #{dDept,jdbcType=VARCHAR},
+      d_num = #{dNum,jdbcType=VARCHAR}
+    where d_id = #{dId,jdbcType=INTEGER}
+  </update>
+  <!-- 医生登录 -->
+  <select id="login" parameterType="com.slwh.emr.model.Doctor" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from emr_doctor
+    where d_num=#{dNum} and d_password=#{dPassword}
+  </select>
+  <!--查询所有医生信息  -->
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from emr_doctor
+  </select>
+  <!--  根据姓名模糊查询-->
+  <select id="selectByName" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from emr_doctor
+where d_name like CONCAT('%',#{dName},'%')
+  </select>
+</mapper>

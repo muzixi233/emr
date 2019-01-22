@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slwh.emr.mapper.HospitalMapper" >
+  <resultMap id="BaseResultMap" type="com.slwh.emr.model.Hospital" >
+    <id column="h_id" property="hId" jdbcType="INTEGER" />
+    <result column="h_name" property="hName" jdbcType="VARCHAR" />
+    <result column="h_jieshao" property="hJieshao" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    h_id, h_name, h_jieshao
+  </sql>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from emr_hospital
+    where h_id = #{hId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteById" parameterType="java.lang.Integer" >
+    delete from emr_hospital
+    where h_id = #{hId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.slwh.emr.model.Hospital" >
+    insert into emr_hospital (h_id, h_name, h_jieshao
+      )
+    values (#{hId,jdbcType=INTEGER}, #{hName,jdbcType=VARCHAR}, #{hJieshao,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.slwh.emr.model.Hospital" >
+    insert into emr_hospital
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hId != null" >
+        h_id,
+      </if>
+      <if test="hName != null" >
+        h_name,
+      </if>
+      <if test="hJieshao != null" >
+        h_jieshao,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hId != null" >
+        #{hId,jdbcType=INTEGER},
+      </if>
+      <if test="hName != null" >
+        #{hName,jdbcType=VARCHAR},
+      </if>
+      <if test="hJieshao != null" >
+        #{hJieshao,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByIdSelective" parameterType="com.slwh.emr.model.Hospital" >
+    update emr_hospital
+    <set >
+      <if test="hName != null" >
+        h_name = #{hName,jdbcType=VARCHAR},
+      </if>
+      <if test="hJieshao != null" >
+        h_jieshao = #{hJieshao,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where h_id = #{hId,jdbcType=INTEGER}
+  </update>
+  <update id="updateById" parameterType="com.slwh.emr.model.Hospital" >
+    update emr_hospital
+    set h_name = #{hName,jdbcType=VARCHAR},
+      h_jieshao = #{hJieshao,jdbcType=VARCHAR}
+    where h_id = #{hId,jdbcType=INTEGER}
+  </update>
+</mapper>

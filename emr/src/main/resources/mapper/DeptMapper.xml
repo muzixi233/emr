@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slwh.emr.mapper.DeptMapper" >
+  <resultMap id="BaseResultMap" type="com.slwh.emr.model.Dept" >
+    <id column="de_id" property="deId" jdbcType="INTEGER" />
+    <result column="de_num" property="deNum" jdbcType="VARCHAR" />
+    <result column="de_name" property="deName" jdbcType="VARCHAR" />
+    <result column="de_hospital" property="deHospital" jdbcType="VARCHAR" />
+    <collection property="doctors" ofType="Doctor" column="d_num">
+      <id column="d_id" property="dId" jdbcType="INTEGER" />
+      <result column="d_name" property="dName" jdbcType="VARCHAR" />
+      <result column="d_password" property="dPassword" jdbcType="VARCHAR" />
+      <result column="d_age" property="dAge" jdbcType="INTEGER" />
+      <result column="d_sex" property="dSex" jdbcType="VARCHAR" />
+      <result column="d_tel" property="dTel" jdbcType="INTEGER" />
+      <result column="d_email" property="dEmail" jdbcType="VARCHAR" />
+      <result column="d_level" property="dLevel" jdbcType="INTEGER" />
+      <result column="d_dept" property="dDept" jdbcType="VARCHAR" />
+      <result column="d_num" property="dNum" jdbcType="VARCHAR" />
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    de_id, de_num, de_name, de_hospital
+  </sql>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from emr_dept
+    where de_id = #{deId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteById" parameterType="java.lang.Integer" >
+    delete from emr_dept
+    where de_id = #{deId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.slwh.emr.model.Dept" >
+    insert into emr_dept (de_id, de_num, de_name, 
+      de_hospital)
+    values (#{deId,jdbcType=INTEGER}, #{deNum,jdbcType=VARCHAR}, #{deName,jdbcType=VARCHAR}, 
+      #{deHospital,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.slwh.emr.model.Dept" >
+    insert into emr_dept
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="deId != null" >
+        de_id,
+      </if>
+      <if test="deNum != null" >
+        de_num,
+      </if>
+      <if test="deName != null" >
+        de_name,
+      </if>
+      <if test="deHospital != null" >
+        de_hospital,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="deId != null" >
+        #{deId,jdbcType=INTEGER},
+      </if>
+      <if test="deNum != null" >
+        #{deNum,jdbcType=VARCHAR},
+      </if>
+      <if test="deName != null" >
+        #{deName,jdbcType=VARCHAR},
+      </if>
+      <if test="deHospital != null" >
+        #{deHospital,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByIdSelective" parameterType="com.slwh.emr.model.Dept" >
+    update emr_dept
+    <set >
+      <if test="deNum != null" >
+        de_num = #{deNum,jdbcType=VARCHAR},
+      </if>
+      <if test="deName != null" >
+        de_name = #{deName,jdbcType=VARCHAR},
+      </if>
+      <if test="deHospital != null" >
+        de_hospital = #{deHospital,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where de_id = #{deId,jdbcType=INTEGER}
+  </update>
+  <update id="updateById" parameterType="com.slwh.emr.model.Dept" >
+    update emr_dept
+    set de_num = #{deNum,jdbcType=VARCHAR},
+      de_name = #{deName,jdbcType=VARCHAR},
+      de_hospital = #{deHospital,jdbcType=VARCHAR}
+    where de_id = #{deId,jdbcType=INTEGER}
+  </update>
+</mapper>
