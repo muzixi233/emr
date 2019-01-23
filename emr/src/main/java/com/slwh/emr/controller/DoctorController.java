@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 //医生doctor
+//测试一下
 @RestController
 @RequestMapping("doctor")
 public class DoctorController {
