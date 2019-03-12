@@ -5,7 +5,7 @@
                 <el-breadcrumb-item><i class="el-icon-lx-cascades"></i> 医生信息</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
-        <div class="container"  id="printTest">
+        <div class="container" id="printTest">
             <div class="handle-box">
                 <el-button type="primary" icon="delete" class="handle-del mr10" @click="delAll">批量删除</el-button>
                 <el-select v-model="select_cate" placeholder="筛选医生" class="handle-select mr10">

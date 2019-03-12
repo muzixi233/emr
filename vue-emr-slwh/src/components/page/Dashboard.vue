@@ -11,19 +11,19 @@
                         </div>
                     </div>
                     <div class="user-info-list">上次登录时间：<span>2018-01-01</span></div>
-                    <div class="user-info-list">上次登录地点：<span>东莞</span></div>
+                    <div class="user-info-list">上次登录地点：<span>重庆 </span></div>
                 </el-card>
                 <el-card shadow="hover" style="height:252px;">
                     <div slot="header" class="clearfix">
-                        <span>语言详情</span>
+                        <span>病人详情</span>
                     </div>
-                    Vue
+                    门诊病人
                     <el-progress :percentage="71.3" color="#42b983"></el-progress>
-                    JavaScript
+                    住院病人
                     <el-progress :percentage="24.1" color="#f1e05a"></el-progress>
-                    CSS
+                    手术病人
                     <el-progress :percentage="3.7"></el-progress>
-                    HTML
+                    病危病人
                     <el-progress :percentage="0.9" color="#f56c6c"></el-progress>
                 </el-card>
             </el-col>
@@ -34,8 +34,8 @@
                             <div class="grid-content grid-con-1">
                                 <i class="el-icon-lx-people grid-con-icon"></i>
                                 <div class="grid-cont-right">
-                                    <div class="grid-num">1234</div>
-                                    <div>用户访问量</div>
+                                    <div class="grid-num">134</div>
+                                    <div>待处理病人</div>
                                 </div>
                             </div>
                         </el-card>
@@ -46,7 +46,7 @@
                                 <i class="el-icon-lx-notice grid-con-icon"></i>
                                 <div class="grid-cont-right">
                                     <div class="grid-num">321</div>
-                                    <div>系统消息</div>
+                                    <div>已处理</div>
                                 </div>
                             </div>
                         </el-card>
@@ -57,7 +57,7 @@
                                 <i class="el-icon-lx-goods grid-con-icon"></i>
                                 <div class="grid-cont-right">
                                     <div class="grid-num">5000</div>
-                                    <div>数量</div>
+                                    <div>总数量</div>
                                 </div>
                             </div>
                         </el-card>
@@ -113,26 +113,26 @@
             return {
                 name: localStorage.getItem('ms_username'),
                 todoList: [{
-                        title: '今天要修复100个bug',
+                        title: '三号病人需要提前手术，需注意',
                         status: false,
                     },
                     {
-                        title: '今天要修复100个bug',
+                        title: '7号病人病情好转。观察一下可以出院',
                         status: false,
                     },
                     {
-                        title: '今天要写100行代码加几个bug吧',
+                        title: '第三病栋的病人需要安抚',
                         status: false,
                     }, {
-                        title: '今天要修复100个bug',
+                        title: '待处理',
                         status: false,
                     },
                     {
-                        title: '今天要修复100个bug',
+                        title: '待处理',
                         status: true,
                     },
                     {
-                        title: '今天要写100行代码加几个bug吧',
+                        title: '编不出来了难受',
                         status: true,
                     }
                 ],
