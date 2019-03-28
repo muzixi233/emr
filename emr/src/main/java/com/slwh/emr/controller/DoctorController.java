@@ -3,8 +3,10 @@ package com.slwh.emr.controller;
 import com.slwh.emr.cogfiger.Result;
 import com.slwh.emr.model.Doctor;
 import com.slwh.emr.service.DoctorService;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -12,7 +14,7 @@ import javax.annotation.Resource;
 /**
  * @author muzixi
  */
-@RestController
+@Controller
 @RequestMapping("doctor")
 public class DoctorController {
     @Resource
@@ -20,7 +22,7 @@ public class DoctorController {
 
     @RequestMapping("/hello")
     public String hello(){
-        return "Hello springboot";
+        return "html/index";
     }
 
     @RequestMapping("/login")
@@ -34,6 +36,7 @@ public class DoctorController {
 
     }
     @RequestMapping("/selectAll")
+    @ResponseBody
     public Result selectAll(){
         return Result.success(doctorService.selectAll());
     }
