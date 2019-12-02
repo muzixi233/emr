@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface DengjiMapper {
     int deleteById(Integer djId);
-
+/**rwrwr*/
     int insert(Dengji record);
 
     int insertSelective(Dengji record);
